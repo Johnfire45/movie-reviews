@@ -1,5 +1,5 @@
 import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectID
+const ObjectId = mongodb.ObjectId
 
 let movies 
 
@@ -16,9 +16,6 @@ export default class MoviesDAO{
             console.error(`unable to connect in MoviesDAO: ${e}`)
         }
     }
-
-
-
 
     static async getMovies({// default filter
         filters = null,
@@ -50,6 +47,23 @@ export default class MoviesDAO{
         }
     }
 
+    static async getMovieById(id) {
+        try {
+            return await movies.findOne({ _id: new ObjectId(id) })
+        } catch (e) {
+            console.error(`Unable to get movie by ID: ${e}`)
+            return null
+        }
+    }
 
-
+    static async getRatings() {
+        let ratings = []
+        try {
+            ratings = await movies.distinct("rated")
+            return ratings
+        } catch (e) {
+            console.error(`Unable to get ratings: ${e}`)
+            return ratings
+        }
+    }
 }

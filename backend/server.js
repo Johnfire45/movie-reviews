@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import movies from './api/movies.route.js'
+import moviesController from "./api/movies.controller.js"
+import reviewsController from "./api/reviews.controller.js"
 
 const app = express()
 app.use(cors())
